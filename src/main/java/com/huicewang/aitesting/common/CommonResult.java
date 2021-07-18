@@ -1,6 +1,9 @@
 package com.huicewang.aitesting.common;
 
 import lombok.Getter;
+/**
+ * 我现在感觉很牛逼
+ * */
 
 @Getter
 public class CommonResult<T> {
