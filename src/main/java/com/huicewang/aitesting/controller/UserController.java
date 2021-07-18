@@ -1,9 +1,13 @@
 package com.huicewang.aitesting.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
 import com.huicewang.aitesting.model.User;
 import com.huicewang.aitesting.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +24,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
 
@@ -50,6 +56,13 @@ public class UserController {
     public  boolean deleteUserByID(@RequestParam("id") int id){
 
         return userService.removeById(id);
+    }
+    @RequestMapping(value = "list",method = RequestMethod.GET)
+    public CommonResult listUser(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
+        Page<User> page = new Page<>(pageNum,pageSize);
+        Page<User> userPage=userService.page(page);
+        return CommonResult.success(CommonPage.restResult(userPage));
+
     }
 }
 
