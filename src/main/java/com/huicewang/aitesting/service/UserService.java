@@ -1,17 +1,16 @@
-package com.huicewang.aitesting.service;
+package com.huicewang.aitesting.modules.modules.service;
 
-import com.huicewang.aitesting.model.User;
+import com.huicewang.aitesting.modules.modules.model.User;
+import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.List;
-
-public interface UserService {
-    public User queryUserByID(int id);
-    public List<User> queryUserByAge(int age);
-    public List<User> queryUserByName(String username);
-    public int insertUser(User user);
-    public int updateUserByID(User user);
-    public int deleteUserByID(int id);
-
-
+/**
+ * <p>
+ *  服务类
+ * </p>
+ *
+ * @author huice
+ * @since 2021-07-18
+ */
+public interface UserService extends IService<User> {
 
 }

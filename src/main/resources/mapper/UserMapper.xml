@@ -1,34 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.huicewang.aitesting.dao.UserDao">
-    <select id="getUserByID" resultType="User">
-        select * from `user` where id=#{id}
-    </select>
-    <select id="getUserByAge" resultType="User">
-        select * from `user` where age=#{age}
-    </select>
-    <select id="getUserByName" resultType="User">
-        select * from `user` where username like concat('%',#{username},'%')
-    </select>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huicewang.aitesting.mapper.UserMapper">
 
-    <insert id="insertUser" parameterType="User">
-        <selectKey keyProperty="id" order="AFTER" resultType="int">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-        insert into user (username, password, age)
-        values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
-    </insert>
-    <update id="updateUserByID" parameterType="User">
-       update user
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER}
-    where id = #{id}
-  </update>
-    <delete id="deleteUserByID">
-    delete from user
-    where id = #{id}
-  </delete>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.huicewang.aitesting.model.User">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="age" property="age" />
+    </resultMap>
+
 </mapper>
