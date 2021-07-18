@@ -1,7 +1,7 @@
-package com.huicewang.aitesting.modules.modules.service;
+package com.huicewang.aitesting.service;
 
-import com.huicewang.aitesting.modules.modules.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.huicewang.aitesting.model.User;
 
 /**
  * <p>
