@@ -31,7 +31,10 @@ public class UserController {
 
     @GetMapping("/userId")
     public CommonResult getUserByUId(@RequestParam("id") int id) {
-
+        LOGGER.debug("this is a debug");
+        LOGGER.warn("this is a warn");
+        LOGGER.info("this is a info");
+        LOGGER.error("this is a error");
         User user=userService.getById(id);
 //        CommonResult result=new CommonResult(200,"c你牛逼成功了",user);
        return CommonResult.success(user);

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+    <appender name="MY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Prudent>true</Prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1MB</totalSizeCap>
+
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern> %d{yyyy-MM-dd HH:mm:ss} -%msg%n</Pattern>
+        </layout>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+    <springProfile name="test,dev">
+        <logger name="com.huicewang.aitesting.controller" level="INFO">
+            <appender-ref ref="MY_FILE"/>
+        </logger>
+        <logger name="com.example" level="INFO" />
+    </springProfile>
+
+    <!-- 生产环境. -->
+    <springProfile name="prod">
+        <logger name="com.huicewang.aitesting.controller" level="ERROR">
+            <appender-ref ref="MY_FILE"/>
+        </logger>
+        <logger name="com.example" level="ERROR" />
+    </springProfile>
+
+</configuration>

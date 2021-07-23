@@ -1,0 +1,3 @@
+24934 [http-nio-8080-exec-1] WARN  c.h.a.controller.UserController - this is a warn
+24937 [http-nio-8080-exec-1] INFO  c.h.a.controller.UserController - this is a info
+24939 [http-nio-8080-exec-1] ERROR c.h.a.controller.UserController - this is a error
