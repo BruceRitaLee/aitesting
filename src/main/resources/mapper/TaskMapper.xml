@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huicewang.aitesting.mapper.TaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.huicewang.aitesting.model.Task">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="task" property="task" />
+        <result column="description" property="description" />
+        <result column="jobStatus" property="jobStatus" />
+        <result column="cron" property="cron" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <result column="author" property="author" />
+        <result column="alarmSwitch" property="alarmSwitch" />
+    </resultMap>
+
+</mapper>

@@ -1,11 +1,15 @@
 server:
-  port: 8080
+  port: 9010
 spring:
   profiles:
     active: dev
+  servlet:
+    multipart:
+      enabled: true #开启文件上传
+      max-file-size: 10MB #限制文件上传大小为10M
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/testingdev9?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/apitestingdb?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: admin
 mybatis:
@@ -17,3 +21,8 @@ logging:
   file:
     name: ./logback.log
 
+minio:
+  endpoint: http://127.0.0.1:9008 #MinIO服务所在地址
+  bucketName: aitesting #存储桶名称
+  accessKey: minioadmin #访问的key
+  secretKey: minioadmin #访问的秘钥

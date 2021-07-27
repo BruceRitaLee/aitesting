@@ -16,6 +16,11 @@ public class CommonResult<T> {
         this.message = message;
         this.data = data;
     }
+    public CommonResult(long code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
 
     public static<D> CommonResult success(D data){
         return  new CommonResult<>(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMessage(),data);
@@ -38,4 +43,10 @@ public class CommonResult<T> {
 
     }
 
+    public static CommonResult failed() {
+        return new CommonResult(ResultCode.FAILED.getCode(),ResultCode.FAILED.getMessage());
+    }
+    public static CommonResult success(){
+        return  new CommonResult(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMessage());
+    }
 }

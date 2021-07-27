@@ -6,6 +6,8 @@ import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
 import com.huicewang.aitesting.model.User;
 import com.huicewang.aitesting.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
+@Api
 public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -30,6 +33,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/userId")
+    @ApiOperation("根据ID获取用户信息")
     public CommonResult getUserByUId(@RequestParam("id") int id) {
         LOGGER.debug("this is a debug");
         LOGGER.warn("this is a warn");
@@ -46,21 +50,25 @@ public class UserController {
 //        return userService.
 //
 //    }
+    @ApiOperation("插入数据")
     @PostMapping("/insert")
     public boolean  insertUser(@RequestBody User user){
         return userService.save(user);
 
     }
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
+    @ApiOperation("根据用户ID更新数据")
     public  boolean updateUserByID(@RequestBody User user){
         return  userService.updateById(user);
     }
     @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
+    @ApiOperation("这个是删除一个用户")
     public  boolean deleteUserByID(@RequestParam("id") int id){
 
         return userService.removeById(id);
     }
     @RequestMapping(value = "list",method = RequestMethod.GET)
+    @ApiOperation("这个是用户分页列表")
     public CommonResult listUser(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
         Page<User> page = new Page<>(pageNum,pageSize);
         Page<User> userPage=userService.page(page);

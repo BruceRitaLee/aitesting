@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huicewang.aitesting.mapper.EnvMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.huicewang.aitesting.model.Env">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="service" property="service" />
+        <result column="domain" property="domain" />
+        <result column="ip" property="ip" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <result column="projectId" property="projectId" />
+    </resultMap>
+
+</mapper>
