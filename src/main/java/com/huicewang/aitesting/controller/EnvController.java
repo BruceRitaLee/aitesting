@@ -1,7 +1,10 @@
 package com.huicewang.aitesting.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
+import com.huicewang.aitesting.model.ApiCase;
 import com.huicewang.aitesting.model.Env;
 import com.huicewang.aitesting.service.EnvService;
 import io.swagger.annotations.Api;
@@ -65,6 +68,14 @@ public class EnvController {
         }else{
             return  CommonResult.failed();
         }
+    }
+    @RequestMapping(value = "envlist",method = RequestMethod.GET)
+    @ApiOperation("这个是环境分页列表")
+    public CommonResult listEnv(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
+        Page<Env> page = new Page<>(pageNum,pageSize);
+        Page<Env> envPage=envService.page(page);
+        return CommonResult.success(CommonPage.restResult(envPage));
+
     }
 
 }

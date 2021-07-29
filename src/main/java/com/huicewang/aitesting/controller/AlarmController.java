@@ -1,8 +1,11 @@
 package com.huicewang.aitesting.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
 import com.huicewang.aitesting.model.Alarm;
+import com.huicewang.aitesting.model.User;
 import com.huicewang.aitesting.service.AlarmService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -67,6 +70,14 @@ public class AlarmController {
         }else{
             return  CommonResult.failed();
         }
+    }
+    @RequestMapping(value = "pagelist",method = RequestMethod.GET)
+    @ApiOperation("这个是告警分页列表")
+    public CommonResult listAlarm(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
+        Page<Alarm> page = new Page<>(pageNum,pageSize);
+        Page<Alarm> alarmPage=alarmService.page(page);
+        return CommonResult.success(CommonPage.restResult(alarmPage));
+
     }
 
 

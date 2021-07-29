@@ -1,7 +1,10 @@
 package com.huicewang.aitesting.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
+import com.huicewang.aitesting.model.Alarm;
 import com.huicewang.aitesting.model.ApiCase;
 import com.huicewang.aitesting.service.ApiCaseService;
 import io.swagger.annotations.Api;
@@ -66,7 +69,14 @@ public class ApiCaseController {
             return  CommonResult.failed();
         }
     }
+    @RequestMapping(value = "caselist",method = RequestMethod.GET)
+    @ApiOperation("这个是api用例分页列表")
+    public CommonResult listApiCase(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
+        Page<ApiCase> page = new Page<>(pageNum,pageSize);
+        Page<ApiCase> casePage=apiCaseService.page(page);
+        return CommonResult.success(CommonPage.restResult(casePage));
 
+    }
 
 }
 

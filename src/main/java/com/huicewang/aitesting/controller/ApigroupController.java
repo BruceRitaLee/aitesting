@@ -1,8 +1,10 @@
 package com.huicewang.aitesting.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
-import com.huicewang.aitesting.model.Apigroup;
+import com.huicewang.aitesting.model.ApiGroup;
 import com.huicewang.aitesting.service.ApiGroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,7 +38,7 @@ public class ApigroupController {
 
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     @ApiOperation("插入新的APIgroup")
-    public  CommonResult insertApiGroup(@RequestBody Apigroup apigroup){
+    public  CommonResult insertApiGroup(@RequestBody ApiGroup apigroup){
         boolean flag = apigroupService.save(apigroup);
         if(flag){
             return  CommonResult.success(apigroup);
@@ -48,7 +50,7 @@ public class ApigroupController {
 
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
     @ApiOperation("根据ID修改apigroup")
-    public CommonResult updateApiGroupById(@RequestBody Apigroup apigroup){
+    public CommonResult updateApiGroupById(@RequestBody ApiGroup apigroup){
         boolean flag = apigroupService.updateById(apigroup);
         if(flag){
             return  CommonResult.success(apigroup);
@@ -65,6 +67,14 @@ public class ApigroupController {
         }else{
             return  CommonResult.failed();
         }
+    }
+    @RequestMapping(value = "apigrouplist",method = RequestMethod.GET)
+    @ApiOperation("这个是api分组分页列表")
+    public CommonResult listApiGroupCase(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
+        Page<ApiGroup> page = new Page<>(pageNum,pageSize);
+        Page<ApiGroup> apigroupPage=apigroupService.page(page);
+        return CommonResult.success(CommonPage.restResult(apigroupPage));
+
     }
 
 

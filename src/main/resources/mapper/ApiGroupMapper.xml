@@ -3,7 +3,7 @@
 <mapper namespace="com.huicewang.aitesting.mapper.ApiGroupMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.huicewang.aitesting.model.Apigroup">
+    <resultMap id="BaseResultMap" type="com.huicewang.aitesting.model.ApiGroup">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="description" property="description" />

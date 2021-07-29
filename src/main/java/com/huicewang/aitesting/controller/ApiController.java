@@ -1,8 +1,11 @@
 package com.huicewang.aitesting.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
 import com.huicewang.aitesting.model.Api;
+import com.huicewang.aitesting.model.ApiCase;
 import com.huicewang.aitesting.service.ApiService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -64,6 +67,14 @@ public class ApiController {
         }else{
             return  CommonResult.failed();
         }
+    }
+    @RequestMapping(value = "apilist",method = RequestMethod.GET)
+    @ApiOperation("这个是api分页列表")
+    public CommonResult listApi(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
+        Page<Api> page = new Page<>(pageNum,pageSize);
+        Page<Api> apiPage=apiService.page(page);
+        return CommonResult.success(CommonPage.restResult(apiPage));
+
     }
 
 

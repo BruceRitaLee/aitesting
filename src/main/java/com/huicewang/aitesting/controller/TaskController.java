@@ -1,7 +1,10 @@
 package com.huicewang.aitesting.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
+import com.huicewang.aitesting.model.ApiCase;
 import com.huicewang.aitesting.model.Task;
 import com.huicewang.aitesting.service.TaskService;
 import io.swagger.annotations.Api;
@@ -65,6 +68,14 @@ public class TaskController {
         }else{
             return  CommonResult.failed();
         }
+    }
+    @RequestMapping(value = "tasklist",method = RequestMethod.GET)
+    @ApiOperation("这个是任务分页列表")
+    public CommonResult listTask(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
+        Page<Task> page = new Page<>(pageNum,pageSize);
+        Page<Task> taskPage=taskService.page(page);
+        return CommonResult.success(CommonPage.restResult(taskPage));
+
     }
 
 

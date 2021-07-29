@@ -21,7 +21,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("apigroup")
 @ApiModel(value="Apigroup对象", description="")
-public class Apigroup implements Serializable {
+public class ApiGroup implements Serializable {
 
     private static final long serialVersionUID=1L;
 

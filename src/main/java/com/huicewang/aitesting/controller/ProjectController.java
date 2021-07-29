@@ -1,7 +1,10 @@
 package com.huicewang.aitesting.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
+import com.huicewang.aitesting.model.ApiCase;
 import com.huicewang.aitesting.model.Project;
 import com.huicewang.aitesting.service.ProjectService;
 import io.swagger.annotations.Api;
@@ -65,6 +68,14 @@ public class ProjectController {
         }else{
             return  CommonResult.failed();
         }
+    }
+    @RequestMapping(value = "projectlist",method = RequestMethod.GET)
+    @ApiOperation("这个是项目分页列表")
+    public CommonResult listProject(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
+        Page<Project> page = new Page<>(pageNum,pageSize);
+        Page<Project> projectPage=projectService.page(page);
+        return CommonResult.success(CommonPage.restResult(projectPage));
+
     }
 
 
