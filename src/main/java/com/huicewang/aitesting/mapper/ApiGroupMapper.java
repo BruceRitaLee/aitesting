@@ -1,6 +1,6 @@
 package com.huicewang.aitesting.mapper;
 
-import com.huicewang.aitesting.model.Pamars;
+import com.huicewang.aitesting.model.Apigroup;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lichong
  * @since 2021-07-25
  */
-public interface PamarsMapper extends BaseMapper<Pamars> {
+public interface ApiGroupMapper extends BaseMapper<Apigroup> {
 
 }

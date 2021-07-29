@@ -2,8 +2,8 @@ package com.huicewang.aitesting.controller;
 
 
 import com.huicewang.aitesting.common.CommonResult;
-import com.huicewang.aitesting.model.Env;
-import com.huicewang.aitesting.service.EnvService;
+import com.huicewang.aitesting.model.Params;
+import com.huicewang.aitesting.service.ParamsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -17,29 +17,29 @@ import org.springframework.web.bind.annotation.*;
  * </p>
  *
  * @author lichong
- * @since 2021-07-25
+ * @since 2021-07-29
  */
 @RestController
-@RequestMapping("/env")
+@RequestMapping("/params")
 @Api
-public class EnvController {
-    private static  final Logger logger = LoggerFactory.getLogger(EnvController.class);
+public class ParamsController {
+    private static  final Logger logger = LoggerFactory.getLogger(ParamsController.class);
 
     @Autowired
-    EnvService envService;
+    ParamsService paramsService;
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ApiOperation("根据ID获取到环境")
-    public CommonResult getEnvById(@RequestParam("id") int id){
-        return CommonResult.success(envService.getById(id));
+    public CommonResult getParamsById(@RequestParam("id") int id){
+        return CommonResult.success(paramsService.getById(id));
     }
 
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    @ApiOperation("插入新的Env")
-    public  CommonResult insertEnv(@RequestBody Env env){
-        boolean flag = envService.save(env);
+    @ApiOperation("插入新的Params")
+    public  CommonResult insertParams(@RequestBody Params Params){
+        boolean flag = paramsService.save(Params);
         if(flag){
-            return  CommonResult.success(env);
+            return  CommonResult.success(Params);
         }else{
             return  CommonResult.failed();
         }
@@ -47,19 +47,19 @@ public class EnvController {
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
-    @ApiOperation("根据ID修改Env")
-    public CommonResult updateEnvById(@RequestBody Env env){
-        boolean flag = envService.updateById(env);
+    @ApiOperation("根据ID修改Params")
+    public CommonResult updateParamsById(@RequestBody Params Params){
+        boolean flag = paramsService.updateById(Params);
         if(flag){
-            return  CommonResult.success(env);
+            return  CommonResult.success(Params);
         }else{
             return  CommonResult.failed();
         }
     }
-    @ApiOperation("根据ID删除Env")
+    @ApiOperation("根据ID删除Params")
     @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
-    public CommonResult deleteEnvById(@RequestParam("id") int id ){
-        boolean flag = envService.removeById(id);
+    public CommonResult deleteParamsById(@RequestParam("id") int id ){
+        boolean flag = paramsService.removeById(id);
         if(flag){
             return  CommonResult.success();
         }else{

@@ -1,6 +1,6 @@
 package com.huicewang.aitesting.service;
 
-import com.huicewang.aitesting.model.Apicase;
+import com.huicewang.aitesting.model.Params;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author lichong
- * @since 2021-07-27
+ * @since 2021-07-29
  */
-public interface ApicaseService extends IService<Apicase> {
+public interface ParamsService extends IService<Params> {
 
 }

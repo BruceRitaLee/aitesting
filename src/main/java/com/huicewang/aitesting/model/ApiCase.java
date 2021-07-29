@@ -23,7 +23,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("apicase")
 @ApiModel(value="Apicase对象", description="")
-public class Apicase implements Serializable {
+public class ApiCase implements Serializable {
 
     private static final long serialVersionUID=1L;
 

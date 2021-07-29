@@ -17,13 +17,13 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author lichong
- * @since 2021-07-25
+ * @since 2021-07-29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("pamars")
-@ApiModel(value="Pamars对象", description="")
-public class Pamars implements Serializable {
+@TableName("params")
+@ApiModel(value="Params对象", description="")
+public class Params implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -56,7 +56,7 @@ public class Pamars implements Serializable {
     private String type;
 
     @ApiModelProperty(value = "描述")
-    private String desc;
+    private String description;
 
     @ApiModelProperty(value = "添加人")
     private String author;

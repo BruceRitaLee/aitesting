@@ -1,9 +1,15 @@
 package com.huicewang.aitesting.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import com.huicewang.aitesting.common.CommonResult;
+import com.huicewang.aitesting.model.Task;
+import com.huicewang.aitesting.service.TaskService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -14,8 +20,55 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-07-25
  */
 @RestController
-@RequestMapping("/haha/task")
+@RequestMapping("/task")
+@Api
 public class TaskController {
+    private static  final Logger logger = LoggerFactory.getLogger(TaskController.class);
+
+    @Autowired
+    TaskService taskService;
+
+    @RequestMapping(value = "/get",method = RequestMethod.GET)
+    @ApiOperation("根据ID获取到项目信息")
+    public CommonResult getTaskById(@RequestParam("id") int id){
+        return CommonResult.success(taskService.getById(id));
+    }
+
+    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    @ApiOperation("插入新的Task")
+    public  CommonResult insertTask(@RequestBody Task task){
+        boolean flag = taskService.save(task);
+        if(flag){
+            return  CommonResult.success(task);
+        }else{
+            return  CommonResult.failed();
+        }
+
+    }
+
+    @RequestMapping(value = "/update",method = RequestMethod.PUT)
+    @ApiOperation("根据ID修改Task")
+    public CommonResult updateTaskById(@RequestBody Task task){
+        boolean flag = taskService.updateById(task);
+        if(flag){
+            return  CommonResult.success(task);
+        }else{
+            return  CommonResult.failed();
+        }
+    }
+    @ApiOperation("根据ID删除Task")
+    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
+    public CommonResult deleteTaskById(@RequestParam("id") int id ){
+        boolean flag = taskService.removeById(id);
+        if(flag){
+            return  CommonResult.success();
+        }else{
+            return  CommonResult.failed();
+        }
+    }
+
 
 }
+
+
 

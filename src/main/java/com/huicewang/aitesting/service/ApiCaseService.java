@@ -1,7 +1,7 @@
 package com.huicewang.aitesting.service;
 
+import com.huicewang.aitesting.model.ApiCase;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.huicewang.aitesting.model.Pamars;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import com.huicewang.aitesting.model.Pamars;
  * </p>
  *
  * @author lichong
- * @since 2021-07-25
+ * @since 2021-07-27
  */
-public interface PamarsService extends IService<Pamars> {
+public interface ApiCaseService extends IService<ApiCase> {
 
 }

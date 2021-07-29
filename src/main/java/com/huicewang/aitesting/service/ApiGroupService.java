@@ -11,6 +11,6 @@ import com.huicewang.aitesting.model.Apigroup;
  * @author lichong
  * @since 2021-07-25
  */
-public interface ApigroupService extends IService<Apigroup> {
+public interface ApiGroupService extends IService<Apigroup> {
 
 }

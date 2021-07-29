@@ -1,8 +1,8 @@
 package com.huicewang.aitesting.service.impl;
 
-import com.huicewang.aitesting.model.Pamars;
-import com.huicewang.aitesting.mapper.PamarsMapper;
-import com.huicewang.aitesting.service.PamarsService;
+import com.huicewang.aitesting.model.Apigroup;
+import com.huicewang.aitesting.mapper.ApiGroupMapper;
+import com.huicewang.aitesting.service.ApiGroupService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2021-07-25
  */
 @Service
-public class PamarsServiceImpl extends ServiceImpl<PamarsMapper, Pamars> implements PamarsService {
+public class ApiGroupServiceImpl extends ServiceImpl<ApiGroupMapper, Apigroup> implements ApiGroupService {
 
 }

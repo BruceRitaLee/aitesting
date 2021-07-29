@@ -2,8 +2,8 @@ package com.huicewang.aitesting.controller;
 
 
 import com.huicewang.aitesting.common.CommonResult;
-import com.huicewang.aitesting.model.Apicase;
-import com.huicewang.aitesting.service.ApicaseService;
+import com.huicewang.aitesting.model.ApiCase;
+import com.huicewang.aitesting.service.ApiCaseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -22,22 +22,22 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/apicase")
 @Api
-public class ApicaseController {
-    private static  final Logger logger = LoggerFactory.getLogger(ApicaseController.class);
+public class ApiCaseController {
+    private static  final Logger logger = LoggerFactory.getLogger(ApiCaseController.class);
 
     @Autowired
-    ApicaseService apicaseService;
+    ApiCaseService apiCaseService;
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ApiOperation("根据ID获取到用例")
     public CommonResult getApiById(@RequestParam("id") int id){
-        return CommonResult.success(apicaseService.getById(id));
+        return CommonResult.success(apiCaseService.getById(id));
     }
 
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     @ApiOperation("插入新的APIcase")
-    public  CommonResult insertApiCase(@RequestBody Apicase apicase){
-        boolean flag = apicaseService.save(apicase);
+    public  CommonResult insertApiCase(@RequestBody ApiCase apicase){
+        boolean flag = apiCaseService.save(apicase);
         if(flag){
             return  CommonResult.success(apicase);
         }else{
@@ -48,8 +48,8 @@ public class ApicaseController {
 
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
     @ApiOperation("根据ID修改apicase")
-    public CommonResult updateApiCaseById(@RequestBody Apicase apicase){
-        boolean flag = apicaseService.updateById(apicase);
+    public CommonResult updateApiCaseById(@RequestBody ApiCase apicase){
+        boolean flag = apiCaseService.updateById(apicase);
         if(flag){
             return  CommonResult.success(apicase);
         }else{
@@ -59,7 +59,7 @@ public class ApicaseController {
     @ApiOperation("根据ID删除Apicase")
     @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
     public CommonResult deleteApiCaseById(@RequestParam("id") int id ){
-        boolean flag = apicaseService.removeById(id);
+        boolean flag = apiCaseService.removeById(id);
         if(flag){
             return  CommonResult.success();
         }else{

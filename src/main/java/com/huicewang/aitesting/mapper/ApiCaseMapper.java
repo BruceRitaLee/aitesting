@@ -1,6 +1,6 @@
 package com.huicewang.aitesting.mapper;
 
-import com.huicewang.aitesting.model.Apicase;
+import com.huicewang.aitesting.model.ApiCase;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lichong
  * @since 2021-07-27
  */
-public interface ApicaseMapper extends BaseMapper<Apicase> {
+public interface ApiCaseMapper extends BaseMapper<ApiCase> {
 
 }
