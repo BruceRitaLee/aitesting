@@ -22,6 +22,7 @@
         <result column="createTime" property="createTime" />
         <result column="updateTime" property="updateTime" />
         <result column="apiGroupId" property="apiGroupId" />
+        <result column="requestType" property="requestType" />
     </resultMap>
 
 </mapper>

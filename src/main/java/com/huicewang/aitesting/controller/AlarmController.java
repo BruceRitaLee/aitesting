@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/alarm")
 @Api
+@CrossOrigin
 public class AlarmController {
 
     private static  final  Logger logger = LoggerFactory.getLogger(AlarmController.class);
@@ -79,6 +80,7 @@ public class AlarmController {
         return CommonResult.success(CommonPage.restResult(alarmPage));
 
     }
+
 
 
 

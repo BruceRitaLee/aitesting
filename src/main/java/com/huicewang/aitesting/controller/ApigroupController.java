@@ -1,6 +1,7 @@
 package com.huicewang.aitesting.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
@@ -13,6 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
  *  前端控制器
@@ -24,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/apigroup")
 @Api
+@CrossOrigin
 public class ApigroupController {
     private static  final Logger logger = LoggerFactory.getLogger(ApigroupController.class);
 
@@ -32,8 +37,13 @@ public class ApigroupController {
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     @ApiOperation("根据ID获取到用例组")
-    public CommonResult getApigroupById(@RequestParam("id") int id){
-        return CommonResult.success(apigroupService.getById(id));
+    public CommonResult getApigroupByProjectId(@RequestParam("projectId") int projectId){
+        //return CommonResult.success(apigroupService.getById(projectId));
+        QueryWrapper<ApiGroup> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("projectId", projectId);
+        List<ApiGroup> arrayList = new ArrayList<>();
+
+       return CommonResult.success(apigroupService.list(queryWrapper));
     }
 
     @RequestMapping(value = "/insert",method = RequestMethod.POST)

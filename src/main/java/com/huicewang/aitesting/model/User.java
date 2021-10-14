@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -28,12 +29,15 @@ public class User implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-
+    @NotNull
     private String username;
-
+    @NotNull
     private String password;
 
     private Integer age;
 
 
+    public String getPassword() {
+        return this.password;
+    }
 }

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/apicase")
 @Api
+@CrossOrigin
 public class ApiCaseController {
     private static  final Logger logger = LoggerFactory.getLogger(ApiCaseController.class);
 

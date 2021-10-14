@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/params")
 @Api
+@CrossOrigin
 public class ParamsController {
     private static  final Logger logger = LoggerFactory.getLogger(ParamsController.class);
 

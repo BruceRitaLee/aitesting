@@ -1,6 +1,7 @@
 package com.huicewang.aitesting.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/env")
 @Api
+@CrossOrigin
 public class EnvController {
     private static  final Logger logger = LoggerFactory.getLogger(EnvController.class);
 
@@ -71,9 +73,31 @@ public class EnvController {
     }
     @RequestMapping(value = "envlist",method = RequestMethod.GET)
     @ApiOperation("这个是环境分页列表")
-    public CommonResult listEnv(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
-        Page<Env> page = new Page<>(pageNum,pageSize);
-        Page<Env> envPage=envService.page(page);
+    public CommonResult listEnv(@RequestParam(value = "pageIndex",defaultValue = "1") Integer pageIndex,
+                                @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize,
+                                @RequestParam(value = "projectId",required = false) Integer projectId,
+                                @RequestParam(value = "name",required = false) String name,
+                                @RequestParam(value = "id",required = false) Integer id) {
+        Page<Env> page = new Page<>(pageIndex,pageSize);
+        Page<Env> envPage ;
+        QueryWrapper<Env> queryWrapper = new QueryWrapper<>();
+        if(projectId!=null){
+            queryWrapper.eq("projectId",projectId);
+        }
+        if(name!=null&&name!=""){
+            //queryWrapper.eq("name",name);
+            queryWrapper.like("name",name);
+
+        }
+        if(id!=null){
+            queryWrapper.eq("id",id);
+        }
+        if(projectId==null&&name==null&&name!=""&&id==null){
+             envPage=envService.page(page);
+        }else{
+            envPage=envService.page(page,queryWrapper);
+        }
+
         return CommonResult.success(CommonPage.restResult(envPage));
 
     }

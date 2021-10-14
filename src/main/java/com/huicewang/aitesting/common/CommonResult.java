@@ -21,6 +21,10 @@ public class CommonResult<T> {
         this.message = message;
     }
 
+    public CommonResult(String defaultMessage) {
+        this.message=defaultMessage;
+    }
+
 
     public static<D> CommonResult success(D data){
         return  new CommonResult<>(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMessage(),data);
@@ -38,7 +42,7 @@ public class CommonResult<T> {
         return  new CommonResult<>(ResultCode.FORBIDDEN.getCode(),ResultCode.FORBIDDEN.getMessage(),data);
 
     }
-    public static<D> CommonResult validate_failed(D data){
+    public static<D> CommonResult validateFailed(D data){
         return  new CommonResult<>(ResultCode.VALIDATE_FAILED.getCode(),ResultCode.VALIDATE_FAILED.getMessage(),data);
 
     }
@@ -48,5 +52,12 @@ public class CommonResult<T> {
     }
     public static CommonResult success(){
         return  new CommonResult(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMessage());
+    }
+    public static CommonResult validateFailed(){
+        return  new CommonResult(ResultCode.VALIDATE_FAILED.getCode(),ResultCode.VALIDATE_FAILED.getMessage());
+    }
+
+    public static CommonResult validateFailed(String defaultMessage) {
+        return new CommonResult(defaultMessage);
     }
 }

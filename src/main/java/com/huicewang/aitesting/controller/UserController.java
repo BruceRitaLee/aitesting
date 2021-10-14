@@ -1,6 +1,10 @@
 package com.huicewang.aitesting.controller;
 
 
+import cn.dev33.satoken.secure.SaSecureUtil;
+import cn.dev33.satoken.stp.SaTokenInfo;
+import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
@@ -13,7 +17,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -26,6 +33,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 @Api
+@CrossOrigin
 public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -52,8 +60,23 @@ public class UserController {
 //    }
     @ApiOperation("插入数据")
     @PostMapping("/insert")
-    public boolean  insertUser(@RequestBody User user){
-        return userService.save(user);
+    public CommonResult  insertUser(@RequestBody User user){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        String username = user.getUsername();
+        queryWrapper.eq("username",username);
+        if(userService.getOne(queryWrapper)!=null){
+            return CommonResult.failed("该用户已注册");
+        }
+        String password = SaSecureUtil.md5(user.getPassword());
+        user.setPassword(password);
+        boolean flag = userService.save(user);
+        if(flag){
+
+            return CommonResult.success("注册成功");
+        }else {
+           return CommonResult.failed("注册失败");
+        }
+
 
     }
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
@@ -74,6 +97,32 @@ public class UserController {
         Page<User> userPage=userService.page(page);
         return CommonResult.success(CommonPage.restResult(userPage));
 
+    }
+    @RequestMapping(value = "login",method = RequestMethod.POST)
+    @ApiOperation("登录账号，传给前端token信息")
+    public CommonResult getLogin(@RequestBody User user){
+        SaTokenInfo saTokenInfo = userService.login(user.getUsername(),user.getPassword());
+        if(saTokenInfo==null){
+            LOGGER.debug("login Failed",user.getUsername());
+            return  CommonResult.validateFailed("用户名或密码错误");
+        }
+        Map<String,String> tokenMap = new HashMap<>();
+        tokenMap.put("token",saTokenInfo.getTokenValue());
+        tokenMap.put("tokenHead",saTokenInfo.getTokenName());
+        return CommonResult.success(tokenMap);
+    }
+    @RequestMapping(value = "logout",method = RequestMethod.POST)
+    @ApiOperation("退出登录，后端清空token信息")
+    public CommonResult getLogout(@NotNull @RequestParam String username){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username",username);
+        User user = userService.getOne(queryWrapper);
+        if(user==null){
+            return  CommonResult.failed("用户不存在");
+        }
+        StpUtil.logoutByLoginId(user.getId());
+
+        return CommonResult.success("退出成功");
     }
 }
 

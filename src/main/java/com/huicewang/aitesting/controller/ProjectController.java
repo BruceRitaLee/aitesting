@@ -14,6 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
  *  前端控制器
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/project")
 @Api
+@CrossOrigin
 public class ProjectController {
     private static  final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
@@ -40,6 +44,7 @@ public class ProjectController {
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     @ApiOperation("插入新的Project")
     public  CommonResult insertProject(@RequestBody Project project){
+
         boolean flag = projectService.save(project);
         if(flag){
             return  CommonResult.success(project);
@@ -77,6 +82,17 @@ public class ProjectController {
         return CommonResult.success(CommonPage.restResult(projectPage));
 
     }
+    @RequestMapping(value = "projectListAll",method = RequestMethod.GET)
+    @ApiOperation("这个是项目总列表")
+    public CommonResult listAllProject() {
+//        Page<Project> page = new Page<>();
+//        Page<Project> projectPage=projectService.page(page);
+        List arrayList  =new ArrayList<Project>();
+        arrayList=projectService.list();
+        return CommonResult.success(arrayList);
+
+    }
+
 
 
 }

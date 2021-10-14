@@ -9,20 +9,67 @@ spring:
       max-file-size: 10MB #限制文件上传大小为10M
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/apitestingdb?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/apitestdb?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: admin
+  jackson:
+    timeZone:GMT+08:00
+    date-format:yyyy-MM-dd HH:mm:ss
+    serialization.write_dates_as_timestamps:false
+
+
 mybatis:
   mapper-locations:
     - classpath:mapper/*.xml
     - classpath*:com/**/mapper/*.xml
   type-aliases-package: com.huicewang.aitesting.model
-logging:
-  file:
-    name: ./logback.log
+#logging:
+#  file:
+#    name: ./logback.log
 
 minio:
   endpoint: http://127.0.0.1:9008 #MinIO服务所在地址
   bucketName: aitesting #存储桶名称
   accessKey: minioadmin #访问的key
   secretKey: minioadmin #访问的秘钥
+
+# Sa-Token配置
+sa-token:
+  # token名称 (同时也是cookie名称)
+  token-name: Authorization
+  # token有效期，单位秒，-1代表永不过期
+  timeout: -1
+  # token临时有效期 (指定时间内无操作就视为token过期)，单位秒
+  activity-timeout: -1
+  # 是否允许同一账号并发登录 (为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token (为false时每次登录新建一个token)
+  is-share: false
+  # token风格
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: false
+  # 是否从cookie中读取token
+  is-read-cookie: false
+  # 是否从head中读取token
+  is-read-head: true
+
+# 访问白名单路径
+# 开放Swagger的访问路径和静态资源路径
+secure:
+  ignored:
+    urls:
+      - /
+      - /*.html
+      - /*.htm
+      - /favicon.ico
+      - /**/*.html
+      - /**/*.htm
+      - /**/*.css
+      - /**/*.js
+      - /**/*.jpg
+      - /swagger-resources/**
+      - /v2/api-docs/**
+      - /actuator/**
+      - /user/login
+      - /user/isLogin
