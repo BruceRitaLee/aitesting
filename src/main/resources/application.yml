@@ -16,6 +16,19 @@ spring:
     timeZone:GMT+08:00
     date-format:yyyy-MM-dd HH:mm:ss
     serialization.write_dates_as_timestamps:false
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    lettuce:
+      pool:
+        max-wait: 30000
+        max-active: 100
+        max-idle: 20
+        min-idle: 0
+    database: 0
+    password: #这啥都没有
+    timeout: 60000ms
+
 
 
 mybatis:

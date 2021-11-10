@@ -1,0 +1,4 @@
+9037816 [http-nio-9010-exec-1] INFO  c.h.a.controller.UserController - 我写入缓存了
+9115193 [http-nio-9010-exec-10] INFO  c.h.a.controller.UserController - 我是缓存
+10158358 [http-nio-9010-exec-7] INFO  c.h.a.controller.UserController - 我写入缓存了
+10236174 [http-nio-9010-exec-1] INFO  c.h.a.controller.UserController - 我写入缓存了

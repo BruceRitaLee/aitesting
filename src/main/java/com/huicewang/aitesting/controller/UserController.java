@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.huicewang.aitesting.common.CommonPage;
 import com.huicewang.aitesting.common.CommonResult;
+import com.huicewang.aitesting.common.util.RedisUtil;
 import com.huicewang.aitesting.model.User;
 import com.huicewang.aitesting.service.UserService;
 import io.swagger.annotations.Api;
@@ -39,6 +40,8 @@ public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
+    @Autowired
+    RedisUtil redisUtil;
 
     @GetMapping("/userId")
     @ApiOperation("根据ID获取用户信息")
@@ -47,6 +50,7 @@ public class UserController {
         LOGGER.warn("this is a warn");
         LOGGER.info("this is a info");
         LOGGER.error("this is a error");
+
         User user=userService.getById(id);
 //        CommonResult result=new CommonResult(200,"c你牛逼成功了",user);
        return CommonResult.success(user);
@@ -70,6 +74,9 @@ public class UserController {
         String password = SaSecureUtil.md5(user.getPassword());
         user.setPassword(password);
         boolean flag = userService.save(user);
+        if(redisUtil.hasKey("hah")){
+            redisUtil.del("hah");
+        }
         if(flag){
 
             return CommonResult.success("注册成功");
@@ -93,9 +100,22 @@ public class UserController {
     @RequestMapping(value = "list",method = RequestMethod.GET)
     @ApiOperation("这个是用户分页列表")
     public CommonResult listUser(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize) {
-        Page<User> page = new Page<>(pageNum,pageSize);
-        Page<User> userPage=userService.page(page);
+        Page<User> userPage;
+        //查看缓存中是否存在值，如果存在直接取缓存中数据，没有的话从数据库取值，并添加到缓存中
+        if(redisUtil.hasKey("hah")){
+            userPage= (Page<User>) redisUtil.get("hah");
+            LOGGER.info("我是缓存");
+
+        }else {
+            Page<User> page = new Page<>(pageNum, pageSize);
+             userPage = userService.page(page);
+             redisUtil.set("hah",userPage,600);
+             LOGGER.info("我写入缓存了");
+
+        }
         return CommonResult.success(CommonPage.restResult(userPage));
+
+
 
     }
     @RequestMapping(value = "login",method = RequestMethod.POST)
